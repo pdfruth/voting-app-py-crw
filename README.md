@@ -1,3 +1,3 @@
-# python-hello-world
+# voting app python front-end
 
-A simple program that displays “Hello, World!”. It's often used to illustrate the syntax of the language.
+A simple python app that registers votes in a redis cache
