@@ -7,7 +7,7 @@ import random
 import json
 
 option_a = os.getenv('OPTION_A', "Electric")
-option_b = os.getenv('OPTION_B', "Combustion")
+option_b = os.getenv('OPTION_B', "Petrol")
 hostname = socket.gethostname()
 proc = platform.processor()
 
