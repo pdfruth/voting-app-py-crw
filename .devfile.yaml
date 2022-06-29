@@ -1,8 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: voting-app-py-ds
-attributes:
-  controller.devfile.io/storage-type: ephemeral    
+  name: voting-app-py-ds   
 components:
   - name: python
     container:
