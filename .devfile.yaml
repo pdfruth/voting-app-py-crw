@@ -11,3 +11,12 @@ components:
     memoryRequest: 256Mi
     cpuLimit: 500m
     cpuRequest: 30m
+commands:
+  - exec:
+      commandLine: python -m venv .venv && . .venv/bin/activate && python app.py
+      component: python
+      group:
+        kind: run
+      label: Run the application
+      workingDir: '${PROJECTS_ROOT}/voting-app-py-ds'
+    id: run
