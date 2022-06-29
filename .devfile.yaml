@@ -5,14 +5,6 @@ components:
   - name: python
     container:
       image: registry.redhat.io/devspaces/udi-rhel8:3.0
-      volumeMounts:
-        - name: venv
-          path: /home/user/.venv
-      memoryLimit: 2G
-      mountSources: true
-  - name: venv
-    volume:
-      size: 1G
 commands:
   - id: run
     exec:
