@@ -2,21 +2,25 @@ schemaVersion: 2.1.0
 metadata:
   name: voting-app-py-ds
 attributes:
-  controller.devfile.io/storage-type: ephemeral
+  controller.devfile.io/storage-type: ephemeral    
 components:
-- name: devtools
-  container:
-    image: quay.io/mloriedo/universal-developer-image:ubi8-latest
-    memoryLimit: 2G
-    memoryRequest: 256Mi
-    cpuLimit: 500m
-    cpuRequest: 30m
+  - name: python
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel8:3.0
+      volumeMounts:
+        - name: venv
+          path: /home/user/.venv
+      memoryLimit: 2G
+      mountSources: true
+  - name: venv
+    volume:
+      size: 1G
 commands:
-  - exec:
-      commandLine: python -m venv .venv && . .venv/bin/activate && python app.py
+  - id: run
+    exec:
+      label: "Run the application"
       component: python
+      workingDir: ${PROJECTS_ROOT}/voting-app-py-ds
+      commandLine: python -m venv .venv && . .venv/bin/activate && python app.py
       group:
         kind: run
-      label: Run the application
-      workingDir: '${PROJECTS_ROOT}/voting-app-py-ds'
-    id: run
