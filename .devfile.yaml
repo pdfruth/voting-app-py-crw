@@ -5,20 +5,4 @@ components:
   - name: python
     container:
       image: registry.redhat.io/devspaces/udi-rhel8:3.0
-commands:
-  - id: pip
-    exec:
-      label: "Install requirements"
-      component: python
-      workingDir: ${PROJECTS_ROOT}/voting-app-py-ds
-      commandLine: python3 -m venv .venv && . .venv/bin/activate && pip3 install --user -r requirements.txt
-      group:
-        kind: run
-  - id: run
-    exec:
-      label: "Run the application"
-      component: python
-      workingDir: ${PROJECTS_ROOT}/voting-app-py-ds
-      commandLine: python3 -m venv .venv && . .venv/bin/activate && python3 app.py
-      group:
-        kind: run
+      
