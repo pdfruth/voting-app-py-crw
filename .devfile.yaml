@@ -5,4 +5,8 @@ components:
   - name: python
     container:
       image: registry.redhat.io/devspaces/udi-rhel8:3.0
-      
+      env:
+        - name: REDIS_HOST
+          value: new-redis.pdf-voting-app-demo.svc.cluster.local
+        - name: REDIS_PASSWORD
+          value: admin
