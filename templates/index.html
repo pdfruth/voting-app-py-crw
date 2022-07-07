@@ -88,13 +88,6 @@ button.b{
   vertical-align: middle;
   font-size: 3em;
 }
-#choice a{
-  text-decoration:none;
-}
-#choice a:hover, #choice a:focus{
-  outline:0;
-  text-decoration:underline;
-}
 
 #choice button{
   display: block;
@@ -115,10 +108,9 @@ button.b{
   background-color: #1488c6;
 }
 
-#choice button.b:focus{
+#choice button.b:hover{
   background-color: #00a2a1;
 }
-
 
 #background-stats{
   z-index:1;
@@ -126,6 +118,7 @@ button.b{
   width:100%;
   position:absolute;
 }
+
 #background-stats div{
   transition: width 400ms ease-in-out;
   display:inline-block;
@@ -153,7 +146,7 @@ button.b{
         </div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="//code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
     {% if vote %}
