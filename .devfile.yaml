@@ -1,12 +1,74 @@
 schemaVersion: 2.1.0
 metadata:
-  name: voting-app-py-ds   
+  name: voting-app-py-ds
 components:
-  - name: python
+  - name: checode
+    volume: {}
+  - name: che-code-injector
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:3.0
+      image: quay.io/che-incubator/che-code:insiders-694ef6e
+      command:
+        - /entrypoint-init-container.sh
+      volumeMounts:
+        - name: checode
+          path: /checode
+      memoryLimit: 128Mi
+      memoryRequest: 32Mi
+      imagePullPolicy: Always
+      cpuLimit: 500m
+      cpuRequest: 30m
+    container:
+      command:
+        - /checode/entrypoint-volume.sh
+      cpuLimit: 500m
+      cpuRequest: 30m
+      endpoints:
+        - attributes:
+            contributed-by: che-code.eclipse.org
+            cookiesAuthEnabled: true
+            discoverable: false
+            type: main
+            urlRewriteSupported: true
+          exposure: public
+          name: che-code
+          path: '?tkn=eclipse-che'
+          protocol: https
+          secure: false
+          targetPort: 3100
+        - attributes:
+            contributed-by: che-code.eclipse.org
+            discoverable: false
+            urlRewriteSupported: true
+          exposure: public
+          name: code-redirect-1
+          protocol: http
+          targetPort: 13131
+        - attributes:
+            contributed-by: che-code.eclipse.org
+            discoverable: false
+            urlRewriteSupported: true
+          exposure: public
+          name: code-redirect-2
+          protocol: http
+          targetPort: 13132
+        - attributes:
+            contributed-by: che-code.eclipse.org
+            discoverable: false
+            urlRewriteSupported: true
+          exposure: public
+          name: code-redirect-3
+          protocol: http
+          targetPort: 13133
       env:
         - name: REDIS_HOST
           value: new-redis.pdf-voting-app-demo.svc.cluster.local
         - name: REDIS_PASSWORD
           value: admin
+      image: 'registry.redhat.io/devspaces/udi-rhel8:3.0'
+      memoryLimit: 1024Mi
+      memoryRequest: 256Mi
+      sourceMapping: /projects
+      volumeMounts:
+        - name: checode
+          path: /checode
+    name: python
