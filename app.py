@@ -6,7 +6,7 @@ import socket
 import random
 import json
 
-#This is a comment
+# This is a comment
 
 option_a = os.getenv('OPTION_A', "Nodejs")
 option_b = os.getenv('OPTION_B', "Python")
