@@ -2,21 +2,53 @@ schemaVersion: 2.1.0
 metadata:
   name: voting-app-py-ds
 components:
-  - name: python
+  - attributes:
+      app.kubernetes.io/name: python
+      che-theia.eclipse.org/vscode-extensions:
+        - 'relative:extension/resources/github_com/microsoft/vscode-python/releases/download/2020_7_94776/ms-python-release.vsix'
+      che-theia.eclipse.org/vscode-preferences:
+        python.globalModuleInstallation: true
     container:
-      image: 'registry.redhat.io/devspaces/udi-rhel8:3.0'
-      command:
-        - /checode/entrypoint-volume.sh
-      cpuLimit: 500m
-      cpuRequest: 30m
-      memoryLimit: 1024Mi
-      memoryRequest: 256Mi
+      args:
+        - sh
+        - '-c'
+        - '${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}'
       env:
+        - name: PLUGIN_REMOTE_ENDPOINT_EXECUTABLE
+          value: /remote-endpoint/plugin-remote-endpoint
+        - name: THEIA_PLUGINS
+          value: 'local-dir:///plugins/sidecars/python'
+        - name: CHE_DASHBOARD_URL
+          value: 'https://devspaces-openshift-operators.apps.ocp10.internal.net'
+        - name: CHE_PLUGIN_REGISTRY_URL
+          value: 'https://devspaces-openshift-operators.apps.ocp10.internal.net/plugin-registry/v3'
+        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
+          value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
         - name: REDIS_HOST
           value: new-redis.pdf-voting-app-demo.svc.cluster.local
         - name: REDIS_PASSWORD
           value: admin
+      image: 'registry.redhat.io/devspaces/udi-rhel8:3.0'
+      memoryLimit: 2G
+      mountSources: true
       sourceMapping: /projects
       volumeMounts:
-        - name: checode
-          path: /checode
+        - name: venv
+          path: /home/user/.venv
+        - name: remote-endpoint
+          path: /remote-endpoint
+        - name: plugins
+          path: /plugins
+    name: python
+  - name: venv
+    volume:
+      size: 1G
+commands:
+  - exec:
+      commandLine: python -m venv .venv && . .venv/bin/activate && python hello-world.py
+      component: python
+      group:
+        kind: run
+      label: Run the application
+      workingDir: '${PROJECTS_ROOT}/app.py'
+    id: run
