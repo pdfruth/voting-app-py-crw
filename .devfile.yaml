@@ -45,10 +45,10 @@ components:
       size: 1G
 commands:
   - exec:
-      commandLine: python -m venv .venv && . .venv/bin/activate && python hello-world.py
+      commandLine: python3 -m venv .venv && . .venv/bin/activate && python3 app.py
       component: python
       group:
         kind: run
       label: Run the application
-      workingDir: '${PROJECTS_ROOT}/app.py'
+      workingDir: '${PROJECTS_ROOT}/voting-app-py-ds'
     id: run
