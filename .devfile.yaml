@@ -19,7 +19,7 @@ commands:
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/voting-app-py-crw'
         type: exec
-        command: python -m venv .venv && . .venv/bin/activate && python -m pip --upgrade pip && python -m pip install -r requirements.txt
+        command: python -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip && python -m pip install -r requirements.txt
         component: python
 
   - name: 1. Run
