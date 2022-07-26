@@ -15,6 +15,13 @@ components:
     alias: python
     image: 'registry.redhat.io/codeready-workspaces/plugin-java8-rhel8@sha256:4845d417584375398127969c06e42ad41cb22db21329eaf3fdf8ee99ed723b2b'
 commands:
+  - name: 1. Install requirements
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/voting-app-py-crw'
+        type: exec
+        command: python -m venv .venv && . .venv/bin/activate && python -m pip --upgrade pip && python -m pip install -r requirements.txt
+        component: python
+
   - name: 1. Run
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/voting-app-py-crw'
