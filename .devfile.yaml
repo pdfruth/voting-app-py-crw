@@ -17,9 +17,9 @@ components:
 commands:
   - name: 1. Run
     actions:
-      - workdir: '${CHE_PROJECTS_ROOT}/python-hello-world'
+      - workdir: '${CHE_PROJECTS_ROOT}/voting-app-py-crw'
         type: exec
-        command: python -m venv .venv && . .venv/bin/activate && python hello-world.py
+        command: python -m venv .venv && . .venv/bin/activate && python app.py
         component: python
   - name: Debug current file
     actions:
